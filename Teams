@@ -1,0 +1,1477 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Body_Contains_schemaId": {
+                "actions": {
+                    "eventSource_=_Null": {
+                        "actions": {
+                            "monitoingService_-_Common_alert": {
+                                "cases": {
+                                    "monitoringService_=_Resource_Health": {
+                                        "actions": {
+                                            "CommonAlertSchema_-_Post_Resource_health": {
+                                                "inputs": {
+                                                    "body": {
+                                                        "attachments": [
+                                                            {
+                                                                "content": {
+                                                                    "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                                    "actions": [
+                                                                        {
+                                                                            "title": "Azure Monitor",
+                                                                            "type": "Action.OpenUrl",
+                                                                            "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                                        }
+                                                                    ],
+                                                                    "body": [
+                                                                        {
+                                                                            "columns": [
+                                                                                {
+                                                                                    "items": [
+                                                                                        {
+                                                                                            "alttext": "@triggerBody()?['data']?['alertContext']?['properties']?['title']",
+                                                                                            "size": "Small",
+                                                                                            "style": "Default",
+                                                                                            "type": "Image",
+                                                                                            "url": "https://azure.microsoft.com/svghandler/Service-Health/?width=100&height=100"
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "Column",
+                                                                                    "width": "auto"
+                                                                                },
+                                                                                {
+                                                                                    "items": [
+                                                                                        {
+                                                                                            "color": "accent",
+                                                                                            "size": "Large",
+                                                                                            "text": "@triggerBody()?['data']?['alertContext']?['properties']?['title']",
+                                                                                            "type": "TextBlock",
+                                                                                            "weight": "Bolder",
+                                                                                            "wrap": true
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "Column",
+                                                                                    "width": "stretch"
+                                                                                }
+                                                                            ],
+                                                                            "type": "ColumnSet"
+                                                                        },
+                                                                        {
+                                                                            "text": "@triggerBody()?['data']?['alertContext']?['properties']?['details']",
+                                                                            "type": "TextBlock",
+                                                                            "wrap": true
+                                                                        },
+                                                                        {
+                                                                            "facts": [
+                                                                                {
+                                                                                    "title": "Fired Time:",
+                                                                                    "value": "@if(not(equals(triggerBody()?['data']?['essentials']?['firedDateTime'],null)),formatDateTime(triggerBody()?['data']?['essentials']?['firedDateTime'], 'dd/MM/yyyy HH:mm:ss'),null)"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Current Health Status:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['properties']?['currentHealthStatus']"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Previous Health Status:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['properties']?['previousHealthStatus']"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Type:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['properties']?['type']"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Cause:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['properties']?['cause']"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Resource ID:",
+                                                                                    "value": "@triggerBody()?['data']?['essentials']?['alertTargetIDs']?[0]"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Configuration Item:",
+                                                                                    "value": "@triggerBody()?['data']?['essentials']?['configurationItems']?[0]"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Alert Status:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['status']"
+                                                                                }
+                                                                            ],
+                                                                            "type": "FactSet"
+                                                                        }
+                                                                    ],
+                                                                    "speak": "@triggerBody()?['data']?['alertContext']?['properties']?['title']",
+                                                                    "themeColor": "0072C6",
+                                                                    "type": "AdaptiveCard",
+                                                                    "version": "1.6"
+                                                                },
+                                                                "contentType": "application/vnd.microsoft.card.adaptive"
+                                                            }
+                                                        ],
+                                                        "type": "message"
+                                                    },
+                                                    "headers": {
+                                                        "Content-Type": "application/json"
+                                                    },
+                                                    "method": "POST",
+                                                    "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                                                },
+                                                "type": "Http"
+                                            }
+                                        },
+                                        "case": "Resource Health"
+                                    },
+                                    "monitoringService_=_ServiceHealth": {
+                                        "actions": {
+                                            "CommonAlertSchema_-_Post_Service_health": {
+                                                "inputs": {
+                                                    "body": {
+                                                        "attachments": [
+                                                            {
+                                                                "content": {
+                                                                    "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                                    "actions": [
+                                                                        {
+                                                                            "title": "Azure Monitor",
+                                                                            "type": "Action.OpenUrl",
+                                                                            "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                                        }
+                                                                    ],
+                                                                    "body": [
+                                                                        {
+                                                                            "columns": [
+                                                                                {
+                                                                                    "items": [
+                                                                                        {
+                                                                                            "alttext": "@triggerBody()?['data']?['alertContext']?['properties']?['title']",
+                                                                                            "size": "Small",
+                                                                                            "style": "Default",
+                                                                                            "type": "Image",
+                                                                                            "url": "https://azure.microsoft.com/svghandler/Service-Health/?width=100&height=100"
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "Column",
+                                                                                    "width": "auto"
+                                                                                },
+                                                                                {
+                                                                                    "items": [
+                                                                                        {
+                                                                                            "color": "accent",
+                                                                                            "size": "Large",
+                                                                                            "text": "@triggerBody()?['data']?['alertContext']?['properties']?['title']",
+                                                                                            "type": "TextBlock",
+                                                                                            "weight": "Bolder",
+                                                                                            "wrap": true
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "Column",
+                                                                                    "width": "stretch"
+                                                                                }
+                                                                            ],
+                                                                            "type": "ColumnSet"
+                                                                        },
+                                                                        {
+                                                                            "text": "@body('Html_to_text')",
+                                                                            "type": "TextBlock",
+                                                                            "wrap": true
+                                                                        },
+                                                                        {
+                                                                            "facts": [
+                                                                                {
+                                                                                    "title": "Fired Time:",
+                                                                                    "value": "@if(not(equals(triggerBody()?['data']?['essentials']?['firedDateTime'],null)),formatDateTime(triggerBody()?['data']?['essentials']?['firedDateTime'], 'dd/MM/yyyy HH:mm:ss'),null)"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Service:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['properties']?['service']"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Impacted Regions:",
+                                                                                    "value": "@variables('ImpactedRegions')"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Incident Type:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['properties']?['incidentType']"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Impact Start Time:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['properties']?['impactStartTime']"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Stage:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['properties']?['Stage']"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Resource ID:",
+                                                                                    "value": "@triggerBody()?['data']?['essentials']?['alertTargetIDs']?[0]"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Configuration Item:",
+                                                                                    "value": "@triggerBody()?['data']?['essentials']?['configurationItems']?[0]"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Tracking ID:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['properties']?['trackingId']"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Communication ID:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['properties']?['communicationId']"
+                                                                                },
+                                                                                {
+                                                                                    "title": "Alert Status:",
+                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['status']"
+                                                                                }
+                                                                            ],
+                                                                            "type": "FactSet"
+                                                                        }
+                                                                    ],
+                                                                    "speak": "@triggerBody()?['data']?['alertContext']?['properties']?['title']",
+                                                                    "themeColor": "0072C6",
+                                                                    "type": "AdaptiveCard",
+                                                                    "version": "1.6"
+                                                                },
+                                                                "contentType": "application/vnd.microsoft.card.adaptive"
+                                                            }
+                                                        ],
+                                                        "type": "message"
+                                                    },
+                                                    "headers": {
+                                                        "Content-Type": "application/json"
+                                                    },
+                                                    "method": "POST",
+                                                    "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                                                },
+                                                "runAfter": {
+                                                    "For_each": [
+                                                        "Succeeded"
+                                                    ]
+                                                },
+                                                "type": "Http"
+                                            },
+                                            "For_each": {
+                                                "actions": {
+                                                    "Compose": {
+                                                        "inputs": "@join(body('Select'), ', ')",
+                                                        "runAfter": {
+                                                            "Select": [
+                                                                "Succeeded"
+                                                            ]
+                                                        },
+                                                        "type": "Compose"
+                                                    },
+                                                    "Select": {
+                                                        "inputs": {
+                                                            "from": "@outputs('Parse_JSON')?['body'][0]['ImpactedRegions']",
+                                                            "select": "@item()['RegionName']"
+                                                        },
+                                                        "type": "Select"
+                                                    },
+                                                    "Set_variable": {
+                                                        "inputs": {
+                                                            "name": "ImpactedRegions",
+                                                            "value": "@outputs('Compose')"
+                                                        },
+                                                        "runAfter": {
+                                                            "Compose": [
+                                                                "Succeeded"
+                                                            ]
+                                                        },
+                                                        "type": "SetVariable"
+                                                    }
+                                                },
+                                                "foreach": "@outputs('Parse_JSON')?['body'][0]['ImpactedRegions']",
+                                                "runAfter": {
+                                                    "Parse_JSON": [
+                                                        "Succeeded"
+                                                    ]
+                                                },
+                                                "type": "Foreach"
+                                            },
+                                            "Html_to_text": {
+                                                "inputs": {
+                                                    "body": "<p class=\"editor-paragraph\">@{triggerBody()?['data']?['alertContext']?['properties']?['communication']}</p>",
+                                                    "host": {
+                                                        "connection": {
+                                                            "name": "@parameters('$connections')['conversionservice']['connectionId']"
+                                                        }
+                                                    },
+                                                    "method": "post",
+                                                    "path": "/html2text"
+                                                },
+                                                "type": "ApiConnection"
+                                            },
+                                            "Parse_JSON": {
+                                                "inputs": {
+                                                    "content": "@triggerBody()?['data']?['alertContext']?['properties']?['impactedServices']",
+                                                    "schema": {
+                                                        "impactedServices": [
+                                                            {
+                                                                "ImpactedRegions": [
+                                                                    {
+                                                                        "RegionId": "string",
+                                                                        "RegionName": "string"
+                                                                    }
+                                                                ],
+                                                                "ServiceGuid": "string",
+                                                                "ServiceId": "string",
+                                                                "ServiceName": "string"
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                "runAfter": {
+                                                    "Html_to_text": [
+                                                        "Succeeded"
+                                                    ]
+                                                },
+                                                "type": "ParseJson"
+                                            }
+                                        },
+                                        "case": "ServiceHealth"
+                                    }
+                                },
+                                "default": {
+                                    "actions": {
+                                        "Severity_-_Common_alert": {
+                                            "cases": {
+                                                "Sev0_(Critical)_-_Common_alert": {
+                                                    "actions": {
+                                                        "Post_Default_-_Sev1_-_Common_alert": {
+                                                            "inputs": {
+                                                                "body": {
+                                                                    "attachments": [
+                                                                        {
+                                                                            "content": {
+                                                                                "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                                                "actions": [
+                                                                                    {
+                                                                                        "title": "Azure Monitor",
+                                                                                        "type": "Action.OpenUrl",
+                                                                                        "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                                                    }
+                                                                                ],
+                                                                                "body": [
+                                                                                    {
+                                                                                        "columns": [
+                                                                                            {
+                                                                                                "items": [
+                                                                                                    {
+                                                                                                        "alttext": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                                        "size": "Small",
+                                                                                                        "style": "Default",
+                                                                                                        "type": "Image",
+                                                                                                        "url": "https://azure.microsoft.com/svghandler/Alerts/?width=100&height=100"
+                                                                                                    }
+                                                                                                ],
+                                                                                                "type": "Column",
+                                                                                                "width": "auto"
+                                                                                            },
+                                                                                            {
+                                                                                                "items": [
+                                                                                                    {
+                                                                                                        "color": "@if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev0'),'attention',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev1'),'warning',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev2'),'warning',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev3'),'accent',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev4'),'accent','good')))))",
+                                                                                                        "size": "Large",
+                                                                                                        "text": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                                        "type": "TextBlock",
+                                                                                                        "weight": "Bolder",
+                                                                                                        "wrap": true
+                                                                                                    }
+                                                                                                ],
+                                                                                                "type": "Column",
+                                                                                                "width": "stretch"
+                                                                                            }
+                                                                                        ],
+                                                                                        "type": "ColumnSet"
+                                                                                    },
+                                                                                    {
+                                                                                        "text": "@triggerBody()?['data']?['essentials']?['description']",
+                                                                                        "type": "TextBlock",
+                                                                                        "wrap": true
+                                                                                    },
+                                                                                    {
+                                                                                        "facts": [
+                                                                                            {
+                                                                                                "title": "Fired Time:",
+                                                                                                "value": "@if(not(equals(triggerBody()?['data']?['essentials']?['firedDateTime'],null)),formatDateTime(triggerBody()?['data']?['essentials']?['firedDateTime'], 'dd/MM/yyyy HH:mm:ss'),null)"
+                                                                                            },
+                                                                                            {
+                                                                                                "title": "Severity:",
+                                                                                                "value": "@triggerBody()?['data']?['essentials']?['severity']"
+                                                                                            },
+                                                                                            {
+                                                                                                "title": "Metric Name:",
+                                                                                                "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allOf']?[0]?['metricName']"
+                                                                                            },
+                                                                                            {
+                                                                                                "title": "Operator:",
+                                                                                                "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allOf']?[0]?['operator']"
+                                                                                            },
+                                                                                            {
+                                                                                                "title": "Threshold:",
+                                                                                                "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allOf']?[0]?['threshold']"
+                                                                                            },
+                                                                                            {
+                                                                                                "title": "Time Aggregation:",
+                                                                                                "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allOf']?[0]?['timeAggregation']"
+                                                                                            },
+                                                                                            {
+                                                                                                "title": "Metric Value:",
+                                                                                                "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allOf']?[0]?['metricValue']"
+                                                                                            },
+                                                                                            {
+                                                                                                "title": "Monitoring Service:",
+                                                                                                "value": "@triggerBody()?['data']?['essentials']?['monitoringService']"
+                                                                                            },
+                                                                                            {
+                                                                                                "title": "Resource ID:",
+                                                                                                "value": "@triggerBody()?['data']?['essentials']?['alertTargetIDs']?[0]"
+                                                                                            },
+                                                                                            {
+                                                                                                "title": "Configuration Item:",
+                                                                                                "value": "@triggerBody()?['data']?['essentials']?['configurationItems']?[0]"
+                                                                                            }
+                                                                                        ],
+                                                                                        "type": "FactSet"
+                                                                                    }
+                                                                                ],
+                                                                                "speak": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                "themeColor": "0072C6",
+                                                                                "type": "AdaptiveCard",
+                                                                                "version": "1.6"
+                                                                            },
+                                                                            "contentType": "application/vnd.microsoft.card.adaptive"
+                                                                        }
+                                                                    ],
+                                                                    "type": "message"
+                                                                },
+                                                                "headers": {
+                                                                    "Content-Type": "application/json"
+                                                                },
+                                                                "method": "POST",
+                                                                "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                                                            },
+                                                            "type": "Http"
+                                                        }
+                                                    },
+                                                    "case": "Sev0"
+                                                }
+                                            },
+                                            "default": {
+                                                "actions": {
+                                                    "Post_Default_2": {
+                                                        "inputs": {
+                                                            "body": {
+                                                                "attachments": [
+                                                                    {
+                                                                        "content": {
+                                                                            "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                                            "actions": [
+                                                                                {
+                                                                                    "title": "Azure Monitor",
+                                                                                    "type": "Action.OpenUrl",
+                                                                                    "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                                                }
+                                                                            ],
+                                                                            "body": [
+                                                                                {
+                                                                                    "columns": [
+                                                                                        {
+                                                                                            "items": [
+                                                                                                {
+                                                                                                    "alttext": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                                    "size": "Small",
+                                                                                                    "style": "Default",
+                                                                                                    "type": "Image",
+                                                                                                    "url": "https://azure.microsoft.com/svghandler/Alerts/?width=100&height=100"
+                                                                                                }
+                                                                                            ],
+                                                                                            "type": "Column",
+                                                                                            "width": "auto"
+                                                                                        },
+                                                                                        {
+                                                                                            "items": [
+                                                                                                {
+                                                                                                    "color": "@if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev0'),'attention',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev1'),'warning',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev2'),'warning',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev3'),'accent',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev4'),'accent','good')))))",
+                                                                                                    "size": "Large",
+                                                                                                    "text": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                                    "type": "TextBlock",
+                                                                                                    "weight": "Bolder",
+                                                                                                    "wrap": true
+                                                                                                }
+                                                                                            ],
+                                                                                            "type": "Column",
+                                                                                            "width": "stretch"
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "ColumnSet"
+                                                                                },
+                                                                                {
+                                                                                    "text": "@triggerBody()?['data']?['essentials']?['description']",
+                                                                                    "type": "TextBlock",
+                                                                                    "wrap": true
+                                                                                },
+                                                                                {
+                                                                                    "facts": [
+                                                                                        {
+                                                                                            "title": "Fired Time:",
+                                                                                            "value": "@if(not(equals(triggerBody()?['data']?['essentials']?['firedDateTime'],null)),formatDateTime(triggerBody()?['data']?['essentials']?['firedDateTime'], 'dd/MM/yyyy HH:mm:ss'),null)"
+                                                                                        },
+                                                                                        {
+                                                                                            "title": "Severity:",
+                                                                                            "value": "@triggerBody()?['data']?['essentials']?['severity']"
+                                                                                        },
+                                                                                        {
+                                                                                            "title": "Metric Name:",
+                                                                                            "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allOf']?[0]?['metricName']"
+                                                                                        },
+                                                                                        {
+                                                                                            "title": "Operator:",
+                                                                                            "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allOf']?[0]?['operator']"
+                                                                                        },
+                                                                                        {
+                                                                                            "title": "Threshold:",
+                                                                                            "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allOf']?[0]?['threshold']"
+                                                                                        },
+                                                                                        {
+                                                                                            "title": "Time Aggregation:",
+                                                                                            "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allOf']?[0]?['timeAggregation']"
+                                                                                        },
+                                                                                        {
+                                                                                            "title": "Metric Value:",
+                                                                                            "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allOf']?[0]?['metricValue']"
+                                                                                        },
+                                                                                        {
+                                                                                            "title": "Monitoring Service:",
+                                                                                            "value": "@triggerBody()?['data']?['essentials']?['monitoringService']"
+                                                                                        },
+                                                                                        {
+                                                                                            "title": "Resource ID:",
+                                                                                            "value": "@triggerBody()?['data']?['essentials']?['alertTargetIDs']?[0]"
+                                                                                        },
+                                                                                        {
+                                                                                            "title": "Configuration Item:",
+                                                                                            "value": "@triggerBody()?['data']?['essentials']?['configurationItems']?[0]"
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "FactSet"
+                                                                                }
+                                                                            ],
+                                                                            "speak": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                            "themeColor": "0072C6",
+                                                                            "type": "AdaptiveCard",
+                                                                            "version": "1.6"
+                                                                        },
+                                                                        "contentType": "application/vnd.microsoft.card.adaptive"
+                                                                    }
+                                                                ],
+                                                                "type": "message"
+                                                            },
+                                                            "headers": {
+                                                                "Content-Type": "application/json"
+                                                            },
+                                                            "method": "POST",
+                                                            "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                                                        },
+                                                        "type": "Http"
+                                                    }
+                                                }
+                                            },
+                                            "expression": "@triggerBody()?['data']?['essentials']?['severity']",
+                                            "type": "Switch"
+                                        }
+                                    }
+                                },
+                                "expression": "@triggerBody()?['data']?['essentials']?['monitoringService']",
+                                "type": "Switch"
+                            }
+                        },
+                        "else": {
+                            "actions": {
+                                "eventSource": {
+                                    "cases": {
+                                        "eventSource_=_ResourceHealth": {
+                                            "actions": {
+                                                "Post_Resource_health": {
+                                                    "inputs": {
+                                                        "body": {
+                                                            "attachments": [
+                                                                {
+                                                                    "content": {
+                                                                        "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                                        "actions": [
+                                                                            {
+                                                                                "title": "Azure Monitor",
+                                                                                "type": "Action.OpenUrl",
+                                                                                "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                                            }
+                                                                        ],
+                                                                        "body": [
+                                                                            {
+                                                                                "columns": [
+                                                                                    {
+                                                                                        "items": [
+                                                                                            {
+                                                                                                "alttext": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                                                                "size": "Small",
+                                                                                                "style": "Default",
+                                                                                                "type": "Image",
+                                                                                                "url": "https://azure.microsoft.com/svghandler/Service-Health/?width=100&height=100"
+                                                                                            }
+                                                                                        ],
+                                                                                        "type": "Column",
+                                                                                        "width": "auto"
+                                                                                    },
+                                                                                    {
+                                                                                        "items": [
+                                                                                            {
+                                                                                                "color": "accent",
+                                                                                                "size": "Large",
+                                                                                                "text": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                                                                "type": "TextBlock",
+                                                                                                "weight": "Bolder",
+                                                                                                "wrap": true
+                                                                                            }
+                                                                                        ],
+                                                                                        "type": "Column",
+                                                                                        "width": "stretch"
+                                                                                    }
+                                                                                ],
+                                                                                "type": "ColumnSet"
+                                                                            },
+                                                                            {
+                                                                                "text": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['details']",
+                                                                                "type": "TextBlock",
+                                                                                "wrap": true
+                                                                            },
+                                                                            {
+                                                                                "facts": [
+                                                                                    {
+                                                                                        "title": "Event Source:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['eventSource']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Trigger Time:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['eventTimestamp']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Current Health Status:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['currentHealthStatus']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Previous Health Status:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['previousHealthStatus']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Resource ID:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['resourceId']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Event ID:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['eventDataId']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Operation ID:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['operationId']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Operation Name:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['operationName']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Status:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['status']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Alert Status:",
+                                                                                        "value": "@triggerBody()?['data']?['status']"
+                                                                                    }
+                                                                                ],
+                                                                                "type": "FactSet"
+                                                                            }
+                                                                        ],
+                                                                        "speak": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                                        "themeColor": "0072C6",
+                                                                        "type": "AdaptiveCard",
+                                                                        "version": "1.6"
+                                                                    },
+                                                                    "contentType": "application/vnd.microsoft.card.adaptive"
+                                                                }
+                                                            ],
+                                                            "type": "message"
+                                                        },
+                                                        "headers": {
+                                                            "Content-Type": "application/json"
+                                                        },
+                                                        "method": "POST",
+                                                        "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                                                    },
+                                                    "type": "Http"
+                                                }
+                                            },
+                                            "case": "ResourceHealth"
+                                        },
+                                        "eventSource_=_ServiceHealth": {
+                                            "actions": {
+                                                "Post_Service_health": {
+                                                    "inputs": {
+                                                        "body": {
+                                                            "attachments": [
+                                                                {
+                                                                    "content": {
+                                                                        "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                                        "actions": [
+                                                                            {
+                                                                                "title": "Azure Monitor",
+                                                                                "type": "Action.OpenUrl",
+                                                                                "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                                            }
+                                                                        ],
+                                                                        "body": [
+                                                                            {
+                                                                                "columns": [
+                                                                                    {
+                                                                                        "items": [
+                                                                                            {
+                                                                                                "alttext": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                                                                "size": "Small",
+                                                                                                "style": "Default",
+                                                                                                "type": "Image",
+                                                                                                "url": "https://azure.microsoft.com/svghandler/Service-Health/?width=100&height=100"
+                                                                                            }
+                                                                                        ],
+                                                                                        "type": "Column",
+                                                                                        "width": "auto"
+                                                                                    },
+                                                                                    {
+                                                                                        "items": [
+                                                                                            {
+                                                                                                "color": "accent",
+                                                                                                "size": "Large",
+                                                                                                "text": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                                                                "type": "TextBlock",
+                                                                                                "weight": "Bolder",
+                                                                                                "wrap": true
+                                                                                            }
+                                                                                        ],
+                                                                                        "type": "Column",
+                                                                                        "width": "stretch"
+                                                                                    }
+                                                                                ],
+                                                                                "type": "ColumnSet"
+                                                                            },
+                                                                            {
+                                                                                "text": "@replace(triggerBody()?['data']?['context']?['activityLog']?['description'],'<name>','')",
+                                                                                "type": "TextBlock",
+                                                                                "wrap": true
+                                                                            },
+                                                                            {
+                                                                                "facts": [
+                                                                                    {
+                                                                                        "title": "Event Source:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['eventSource']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Service:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['service']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Region:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['region']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Communication:",
+                                                                                        "value": "@replace(replace(triggerBody()?['data']?['context']?['activityLog']?['properties']?['communication'],'<p>',''),'</p>','')"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Incident Type:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['incidentType']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Impact Start Time:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['impactStartTime']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Subscription ID:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['subscriptionId']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Event ID:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['eventDataId']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Operation ID:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['operationId']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Operation Name:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['operationName']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Status:",
+                                                                                        "value": "@triggerBody()?['data']?['context']?['activityLog']?['status']"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Alert Status:",
+                                                                                        "value": "@triggerBody()?['data']?['status']"
+                                                                                    }
+                                                                                ],
+                                                                                "type": "FactSet"
+                                                                            }
+                                                                        ],
+                                                                        "speak": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                                        "themeColor": "0072C6",
+                                                                        "type": "AdaptiveCard",
+                                                                        "version": "1.6"
+                                                                    },
+                                                                    "contentType": "application/vnd.microsoft.card.adaptive"
+                                                                }
+                                                            ],
+                                                            "type": "message"
+                                                        },
+                                                        "headers": {
+                                                            "Content-Type": "application/json"
+                                                        },
+                                                        "method": "POST",
+                                                        "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                                                    },
+                                                    "type": "Http"
+                                                }
+                                            },
+                                            "case": "ServiceHealth"
+                                        }
+                                    },
+                                    "default": {
+                                        "actions": {
+                                            "MonitoringService": {
+                                                "cases": {
+                                                    "MonitoringService_=_Log_Alerts_V2": {
+                                                        "actions": {
+                                                            "Severity_-_Log_Alerts_V2": {
+                                                                "cases": {
+                                                                    "Sev0_(Critical)_-_Log_Alerts_V2": {
+                                                                        "actions": {
+                                                                            "Post_Log_Alerts_V2_-_Sev1": {
+                                                                                "inputs": {
+                                                                                    "body": {
+                                                                                        "attachments": [
+                                                                                            {
+                                                                                                "content": {
+                                                                                                    "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                                                                    "actions": [
+                                                                                                        {
+                                                                                                            "title": "Azure Monitor",
+                                                                                                            "type": "Action.OpenUrl",
+                                                                                                            "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "title": "Search Results",
+                                                                                                            "type": "Action.OpenUrl",
+                                                                                                            "url": "@triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['linkToSearchResultsUI']"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "body": [
+                                                                                                        {
+                                                                                                            "columns": [
+                                                                                                                {
+                                                                                                                    "items": [
+                                                                                                                        {
+                                                                                                                            "alttext": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                                                            "size": "Small",
+                                                                                                                            "style": "Default",
+                                                                                                                            "type": "Image",
+                                                                                                                            "url": "https://azure.microsoft.com/svghandler/Alerts/?width=100&height=100"
+                                                                                                                        }
+                                                                                                                    ],
+                                                                                                                    "type": "Column",
+                                                                                                                    "width": "auto"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "items": [
+                                                                                                                        {
+                                                                                                                            "color": "@if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev0'),'attention',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev1'),'warning',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev2'),'warning',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev3'),'accent',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev4'),'accent','good')))))",
+                                                                                                                            "size": "Large",
+                                                                                                                            "text": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                                                            "type": "TextBlock",
+                                                                                                                            "weight": "Bolder",
+                                                                                                                            "wrap": true
+                                                                                                                        }
+                                                                                                                    ],
+                                                                                                                    "type": "Column",
+                                                                                                                    "width": "stretch"
+                                                                                                                }
+                                                                                                            ],
+                                                                                                            "type": "ColumnSet"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "text": "@triggerBody()?['data']?['essentials']?['description']",
+                                                                                                            "type": "TextBlock",
+                                                                                                            "wrap": true
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "facts": [
+                                                                                                                {
+                                                                                                                    "title": "Trigger Time:",
+                                                                                                                    "value": "@if(not(equals(triggerBody()?['data']?['essentials']?['firedDateTime'],null)),formatDateTime(triggerBody()?['data']?['essentials']?['firedDateTime'], 'dd/MM/yyyy HH:mm:ss'),null)"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "title": "Severity:",
+                                                                                                                    "value": "@if(not(equals(triggerBody()?['data']?['essentials']?['severity'],null)),replace(triggerBody()?['data']?['essentials']?['severity'],'Severity',''),null)"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "title": "Condition:",
+                                                                                                                    "value": "@{if(not(equals(triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['searchQuery'],null)),replace(triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['searchQuery'],'\n','\n\n'),null)}\n\n\n\n@{triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['operator']} @{triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['threshold']}"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "title": "Metric Value:",
+                                                                                                                    "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['metricValue']"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "title": "Resource ID:",
+                                                                                                                    "value": "@triggerBody()?['data']?['essentials']?['configurationitems']?[0]"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "title": "Schema ID:",
+                                                                                                                    "value": "@triggerBody()?['schemaId']"
+                                                                                                                }
+                                                                                                            ],
+                                                                                                            "type": "FactSet"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "speak": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                                    "themeColor": "0072C6",
+                                                                                                    "type": "AdaptiveCard",
+                                                                                                    "version": "1.6"
+                                                                                                },
+                                                                                                "contentType": "application/vnd.microsoft.card.adaptive"
+                                                                                            }
+                                                                                        ],
+                                                                                        "type": "message"
+                                                                                    },
+                                                                                    "headers": {
+                                                                                        "Content-Type": "application/json"
+                                                                                    },
+                                                                                    "method": "POST",
+                                                                                    "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                                                                                },
+                                                                                "type": "Http"
+                                                                            }
+                                                                        },
+                                                                        "case": "Sev0"
+                                                                    }
+                                                                },
+                                                                "default": {
+                                                                    "actions": {
+                                                                        "Post_Log_Alerts_V2_-_Default": {
+                                                                            "inputs": {
+                                                                                "body": {
+                                                                                    "attachments": [
+                                                                                        {
+                                                                                            "content": {
+                                                                                                "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                                                                "actions": [
+                                                                                                    {
+                                                                                                        "title": "Azure Monitor",
+                                                                                                        "type": "Action.OpenUrl",
+                                                                                                        "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "title": "Search Results",
+                                                                                                        "type": "Action.OpenUrl",
+                                                                                                        "url": "@triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['linkToSearchResultsUI']"
+                                                                                                    }
+                                                                                                ],
+                                                                                                "body": [
+                                                                                                    {
+                                                                                                        "columns": [
+                                                                                                            {
+                                                                                                                "items": [
+                                                                                                                    {
+                                                                                                                        "alttext": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                                                        "size": "Small",
+                                                                                                                        "style": "Default",
+                                                                                                                        "type": "Image",
+                                                                                                                        "url": "https://azure.microsoft.com/svghandler/Alerts/?width=100&height=100"
+                                                                                                                    }
+                                                                                                                ],
+                                                                                                                "type": "Column",
+                                                                                                                "width": "auto"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "items": [
+                                                                                                                    {
+                                                                                                                        "color": "@if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev0'),'attention',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev1'),'warning',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev2'),'warning',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev3'),'accent',if(equals(triggerBody()?['data']?['essentials']?['severity'],'Sev4'),'accent','good')))))",
+                                                                                                                        "size": "Large",
+                                                                                                                        "text": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                                                        "type": "TextBlock",
+                                                                                                                        "weight": "Bolder",
+                                                                                                                        "wrap": true
+                                                                                                                    }
+                                                                                                                ],
+                                                                                                                "type": "Column",
+                                                                                                                "width": "stretch"
+                                                                                                            }
+                                                                                                        ],
+                                                                                                        "type": "ColumnSet"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "text": "@triggerBody()?['data']?['essentials']?['description']",
+                                                                                                        "type": "TextBlock",
+                                                                                                        "wrap": true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "facts": [
+                                                                                                            {
+                                                                                                                "title": "Trigger Time:",
+                                                                                                                "value": "@if(not(equals(triggerBody()?['data']?['essentials']?['firedDateTime'],null)),formatDateTime(triggerBody()?['data']?['essentials']?['firedDateTime'], 'dd/MM/yyyy HH:mm:ss'),null)"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "title": "Severity:",
+                                                                                                                "value": "@if(not(equals(triggerBody()?['data']?['essentials']?['severity'],null)),replace(triggerBody()?['data']?['essentials']?['severity'],'Severity',''),null)"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "title": "Condition:",
+                                                                                                                "value": "@{if(not(equals(triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['searchQuery'],null)),replace(triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['searchQuery'],'\n','\n\n'),null)}\n\n\n\n@{triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['operator']} @{triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['threshold']}"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "title": "Metric Value:",
+                                                                                                                "value": "@triggerBody()?['data']?['alertContext']?['condition']?['allof']?[0]?['metricValue']"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "title": "Resource ID:",
+                                                                                                                "value": "@triggerBody()?['data']?['essentials']?['configurationitems']?[0]"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "title": "Schema ID:",
+                                                                                                                "value": "@triggerBody()?['schemaId']"
+                                                                                                            }
+                                                                                                        ],
+                                                                                                        "type": "FactSet"
+                                                                                                    }
+                                                                                                ],
+                                                                                                "speak": "@triggerBody()?['data']?['essentials']?['alertRule']",
+                                                                                                "themeColor": "0072C6",
+                                                                                                "type": "AdaptiveCard",
+                                                                                                "version": "1.6"
+                                                                                            },
+                                                                                            "contentType": "application/vnd.microsoft.card.adaptive"
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "message"
+                                                                                },
+                                                                                "headers": {
+                                                                                    "Content-Type": "application/json"
+                                                                                },
+                                                                                "method": "POST",
+                                                                                "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                                                                            },
+                                                                            "type": "Http"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "expression": "@triggerBody()?['data']?['essentials']?['severity']",
+                                                                "type": "Switch"
+                                                            }
+                                                        },
+                                                        "case": "Log Alerts V2"
+                                                    }
+                                                },
+                                                "default": {
+                                                    "actions": {
+                                                        "Severity": {
+                                                            "cases": {
+                                                                "0_(Critical)": {
+                                                                    "actions": {
+                                                                        "Post_Default_-_Sev1": {
+                                                                            "inputs": {
+                                                                                "body": {
+                                                                                    "attachments": [
+                                                                                        {
+                                                                                            "content": {
+                                                                                                "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                                                                "actions": [
+                                                                                                    {
+                                                                                                        "title": "Azure Monitor",
+                                                                                                        "type": "Action.OpenUrl",
+                                                                                                        "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                                                                    }
+                                                                                                ],
+                                                                                                "body": [
+                                                                                                    {
+                                                                                                        "columns": [
+                                                                                                            {
+                                                                                                                "items": [
+                                                                                                                    {
+                                                                                                                        "alttext": "@triggerBody()?['data']?['context']?['name']",
+                                                                                                                        "size": "Small",
+                                                                                                                        "style": "Default",
+                                                                                                                        "type": "Image",
+                                                                                                                        "url": "https://azure.microsoft.com/svghandler/Alerts/?width=100&height=100"
+                                                                                                                    }
+                                                                                                                ],
+                                                                                                                "type": "Column",
+                                                                                                                "width": "auto"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "items": [
+                                                                                                                    {
+                                                                                                                        "color": "@if(equals(triggerBody()?['data']?['context']?['severity'],'0'),'attention',if(equals(triggerBody()?['data']?['context']?['severity'],'1'),'warning',if(equals(triggerBody()?['data']?['context']?['severity'],'2'),'warning',if(equals(triggerBody()?['data']?['context']?['severity'],'3'),'accent',if(equals(triggerBody()?['data']?['context']?['severity'],'4'),'accent','good')))))",
+                                                                                                                        "size": "Large",
+                                                                                                                        "text": "@triggerBody()?['data']?['context']?['name']",
+                                                                                                                        "type": "TextBlock",
+                                                                                                                        "weight": "Bolder",
+                                                                                                                        "wrap": true
+                                                                                                                    }
+                                                                                                                ],
+                                                                                                                "type": "Column",
+                                                                                                                "width": "stretch"
+                                                                                                            }
+                                                                                                        ],
+                                                                                                        "type": "ColumnSet"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "text": "@triggerBody()?['data']?['context']?['description']",
+                                                                                                        "type": "TextBlock",
+                                                                                                        "wrap": true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "facts": [
+                                                                                                            {
+                                                                                                                "title": "Trigger Time:",
+                                                                                                                "value": "@if(not(equals(triggerBody()?['data']?['context']?['timestamp'],null)),formatDateTime(triggerBody()?['data']?['context']?['timestamp'], 'dd/MM/yyyy HH:mm:ss'),null)"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "title": "Severity:",
+                                                                                                                "value": "@triggerBody()?['data']?['context']?['severity']"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "title": "Condition:",
+                                                                                                                "value": "@{triggerBody()?['data']?['context']?['condition']?['allof']?[0]?['metricName']} @{triggerBody()?['data']?['context']?['condition']?['allof']?[0]?['operator']} @{triggerBody()?['data']?['context']?['condition']?['allof']?[0]?['threshold']}"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "title": "Metric Value:",
+                                                                                                                "value": "@triggerBody()?['data']?['context']?['condition']?['allof']?[0]?['metricValue']"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "title": "Resource ID:",
+                                                                                                                "value": "@triggerBody()?['data']?['context']?['resourceId']"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "title": "Schema ID:",
+                                                                                                                "value": "@triggerBody()?['schemaId']"
+                                                                                                            }
+                                                                                                        ],
+                                                                                                        "type": "FactSet"
+                                                                                                    }
+                                                                                                ],
+                                                                                                "speak": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                                                                "themeColor": "0072C6",
+                                                                                                "type": "AdaptiveCard",
+                                                                                                "version": "1.6"
+                                                                                            },
+                                                                                            "contentType": "application/vnd.microsoft.card.adaptive"
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "message"
+                                                                                },
+                                                                                "headers": {
+                                                                                    "Content-Type": "application/json"
+                                                                                },
+                                                                                "method": "POST",
+                                                                                "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                                                                            },
+                                                                            "type": "Http"
+                                                                        }
+                                                                    },
+                                                                    "case": "Critical"
+                                                                }
+                                                            },
+                                                            "default": {
+                                                                "actions": {
+                                                                    "Post_Default": {
+                                                                        "inputs": {
+                                                                            "body": {
+                                                                                "attachments": [
+                                                                                    {
+                                                                                        "content": {
+                                                                                            "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                                                            "actions": [
+                                                                                                {
+                                                                                                    "title": "Azure Monitor",
+                                                                                                    "type": "Action.OpenUrl",
+                                                                                                    "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                                                                }
+                                                                                            ],
+                                                                                            "body": [
+                                                                                                {
+                                                                                                    "columns": [
+                                                                                                        {
+                                                                                                            "items": [
+                                                                                                                {
+                                                                                                                    "alttext": "@triggerBody()?['data']?['context']?['name']",
+                                                                                                                    "size": "Small",
+                                                                                                                    "style": "Default",
+                                                                                                                    "type": "Image",
+                                                                                                                    "url": "https://azure.microsoft.com/svghandler/Alerts/?width=100&height=100"
+                                                                                                                }
+                                                                                                            ],
+                                                                                                            "type": "Column",
+                                                                                                            "width": "auto"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "items": [
+                                                                                                                {
+                                                                                                                    "color": "@if(equals(triggerBody()?['data']?['context']?['severity'],'0'),'attention',if(equals(triggerBody()?['data']?['context']?['severity'],'1'),'warning',if(equals(triggerBody()?['data']?['context']?['severity'],'2'),'warning',if(equals(triggerBody()?['data']?['context']?['severity'],'3'),'accent',if(equals(triggerBody()?['data']?['context']?['severity'],'4'),'accent','good')))))",
+                                                                                                                    "size": "Large",
+                                                                                                                    "text": "@triggerBody()?['data']?['context']?['name']",
+                                                                                                                    "type": "TextBlock",
+                                                                                                                    "weight": "Bolder",
+                                                                                                                    "wrap": true
+                                                                                                                }
+                                                                                                            ],
+                                                                                                            "type": "Column",
+                                                                                                            "width": "stretch"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "type": "ColumnSet"
+                                                                                                },
+                                                                                                {
+                                                                                                    "text": "@triggerBody()?['data']?['context']?['description']",
+                                                                                                    "type": "TextBlock",
+                                                                                                    "wrap": true
+                                                                                                },
+                                                                                                {
+                                                                                                    "facts": [
+                                                                                                        {
+                                                                                                            "title": "Trigger Time:",
+                                                                                                            "value": "@if(not(equals(triggerBody()?['data']?['context']?['timestamp'],null)),formatDateTime(triggerBody()?['data']?['context']?['timestamp'], 'dd/MM/yyyy HH:mm:ss'),null)"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "title": "Severity:",
+                                                                                                            "value": "@triggerBody()?['data']?['context']?['severity']"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "title": "Condition:",
+                                                                                                            "value": "@{triggerBody()?['data']?['context']?['condition']?['allof']?[0]?['metricName']} @{triggerBody()?['data']?['context']?['condition']?['allof']?[0]?['operator']} @{triggerBody()?['data']?['context']?['condition']?['allof']?[0]?['threshold']}"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "title": "Metric Value:",
+                                                                                                            "value": "@triggerBody()?['data']?['context']?['condition']?['allof']?[0]?['metricValue']"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "title": "Resource ID:",
+                                                                                                            "value": "@triggerBody()?['data']?['context']?['resourceId']"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "title": "Schema ID:",
+                                                                                                            "value": "@triggerBody()?['schemaId']"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "type": "FactSet"
+                                                                                                }
+                                                                                            ],
+                                                                                            "speak": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                                                            "themeColor": "0072C6",
+                                                                                            "type": "AdaptiveCard",
+                                                                                            "version": "1.6"
+                                                                                        },
+                                                                                        "contentType": "application/vnd.microsoft.card.adaptive"
+                                                                                    }
+                                                                                ],
+                                                                                "type": "message"
+                                                                            },
+                                                                            "headers": {
+                                                                                "Content-Type": "application/json"
+                                                                            },
+                                                                            "method": "POST",
+                                                                            "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                                                                        },
+                                                                        "type": "Http"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "expression": "@triggerBody()?['data']?['context']?['activityLog']?['level']",
+                                                            "type": "Switch"
+                                                        }
+                                                    }
+                                                },
+                                                "expression": "@if(not(equals(triggerBody()?['data']?['essentials']?['monitoringService'],null)),triggerBody()?['data']?['essentials']?['monitoringService'],'Default')",
+                                                "type": "Switch"
+                                            }
+                                        }
+                                    },
+                                    "expression": "@triggerBody()?['data']?['context']?['activityLog']?['eventSource']",
+                                    "type": "Switch"
+                                }
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "equals": [
+                                        "@triggerBody()?['data']?['context']?['activityLog']?['eventSource']",
+                                        "@null"
+                                    ]
+                                }
+                            ]
+                        },
+                        "type": "If"
+                    }
+                },
+                "else": {
+                    "actions": {
+                        "Post_Else_Default": {
+                            "inputs": {
+                                "body": {
+                                    "attachments": [
+                                        {
+                                            "content": {
+                                                "$schema": "<http://adaptivecards.io/schemas/adaptive-card.json>",
+                                                "actions": [
+                                                    {
+                                                        "title": "Azure Monitor",
+                                                        "type": "Action.OpenUrl",
+                                                        "url": "https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/alertsV2"
+                                                    }
+                                                ],
+                                                "body": [
+                                                    {
+                                                        "columns": [
+                                                            {
+                                                                "items": [
+                                                                    {
+                                                                        "alttext": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                                        "size": "Small",
+                                                                        "style": "Default",
+                                                                        "type": "Image",
+                                                                        "url": "https://azure.microsoft.com/svghandler/Activity-Log/?width=100&height=100"
+                                                                    }
+                                                                ],
+                                                                "type": "Column",
+                                                                "width": "auto"
+                                                            },
+                                                            {
+                                                                "items": [
+                                                                    {
+                                                                        "color": "accent",
+                                                                        "size": "Large",
+                                                                        "text": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                                        "type": "TextBlock",
+                                                                        "weight": "Bolder",
+                                                                        "wrap": true
+                                                                    }
+                                                                ],
+                                                                "type": "Column",
+                                                                "width": "stretch"
+                                                            }
+                                                        ],
+                                                        "type": "ColumnSet"
+                                                    },
+                                                    {
+                                                        "text": "@triggerBody()?['data']?['context']?['activityLog']?['description']",
+                                                        "type": "TextBlock",
+                                                        "wrap": true
+                                                    },
+                                                    {
+                                                        "facts": [
+                                                            {
+                                                                "title": "Event Type:",
+                                                                "value": "@triggerBody()?[0]?['eventType']"
+                                                            },
+                                                            {
+                                                                "title": "Topic:",
+                                                                "value": "@triggerBody()?[0]?['topic']"
+                                                            }
+                                                        ],
+                                                        "type": "FactSet"
+                                                    }
+                                                ],
+                                                "speak": "@triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']",
+                                                "themeColor": "0072C6",
+                                                "type": "AdaptiveCard",
+                                                "version": "1.6"
+                                            },
+                                            "contentType": "application/vnd.microsoft.card.adaptive"
+                                        }
+                                    ],
+                                    "type": "message"
+                                },
+                                "headers": {
+                                    "Content-Type": "application/json"
+                                },
+                                "method": "POST",
+                                "uri": "https://wyg1v.webhook.office.com/webhookb2/3e82d8d2-dd1c-4e00-8357-92154c12c1ee@cd421585-40c2-4179-895b-ccaeed09cd4f/IncomingWebhook/3f7e349210f34eae978484050547eae3/f7c5917e-bf7c-47a3-ac72-6b7cdcf75dab"
+                            },
+                            "type": "Http"
+                        }
+                    }
+                },
+                "expression": {
+                    "or": [
+                        {
+                            "contains": [
+                                "@triggerBody()",
+                                "schemaId"
+                            ]
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Initialize_variable": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "If"
+            },
+            "Initialize_variable": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "ImpactedRegions",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "runAfter": {},
+                "type": "InitializeVariable"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "schema": {
+                        "properties": {
+                            "IncludeSearchResults": {
+                                "type": "boolean"
+                            },
+                            "alertname": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {
+                "conversionservice": {
+                    "connectionId": "/subscriptions/e8f25eea-5c51-4948-b8e3-c58f24c166d6/resourceGroups/Test/providers/Microsoft.Web/connections/conversionservice",
+                    "connectionName": "conversionservice",
+                    "id": "/subscriptions/e8f25eea-5c51-4948-b8e3-c58f24c166d6/providers/Microsoft.Web/locations/uksouth/managedApis/conversionservice"
+                }
+            }
+        }
+    }
+}
