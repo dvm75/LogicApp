@@ -1,0 +1,360 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "contentVersion": "1.0.0.0",
+        "triggers": {
+            "When_a_blob_is_added_or_modified_(properties_only)_(V2)": {
+                "recurrence": {
+                    "interval": 1,
+                    "frequency": "Minute"
+                },
+                "evaluatedRecurrence": {
+                    "interval": 1,
+                    "frequency": "Minute"
+                },
+                "splitOn": "@triggerBody()",
+                "metadata": {
+                    "JTJmaG9tZQ==": "/home",
+                    "JTJmaG9tZSUyZk5ldytkaXJlY3RvcnklMmY=": "/home/New directory/"
+                },
+                "type": "ApiConnection",
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['azureblob']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/triggers/batch/onupdatedfile",
+                    "queries": {
+                        "folderId": "JTJmaG9tZQ==",
+                        "maxFileCount": 1,
+                        "checkBothCreatedAndModifiedDateTime": false
+                    }
+                }
+            }
+        },
+        "actions": {
+            "Get_blob_content_(V2)": {
+                "runAfter": {},
+                "type": "ApiConnection",
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['azureblob']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/files/@{encodeURIComponent(encodeURIComponent(triggerBody()?['Path']))}/content",
+                    "queries": {
+                        "inferContentType": true
+                    }
+                }
+            },
+            "Initialize_variable": {
+                "runAfter": {
+                    "Get_blob_content_(V2)": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable",
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "filename",
+                            "type": "string",
+                            "value": "@triggerBody()?['Name']"
+                        }
+                    ]
+                }
+            },
+            "Condition": {
+                "actions": {
+                    "Create_file": {
+                        "type": "ApiConnection",
+                        "inputs": {
+                            "host": {
+                                "connection": {
+                                    "name": "@parameters('$connections')['azurefile']['connectionId']"
+                                }
+                            },
+                            "method": "post",
+                            "body": "@body('Get_blob_content_(V2)')",
+                            "headers": {
+                                "ReadFileMetadataFromServer": true
+                            },
+                            "path": "/datasets/default/files",
+                            "queries": {
+                                "folderPath": "/buscomp",
+                                "name": "@triggerBody()?['Name']",
+                                "queryParametersSingleEncoded": true
+                            }
+                        },
+                        "runtimeConfiguration": {
+                            "contentTransfer": {
+                                "transferMode": "Chunked"
+                            }
+                        }
+                    },
+                    "Get_Blob_Metadata_(V2)_1": {
+                        "type": "ApiConnection",
+                        "inputs": {
+                            "host": {
+                                "connection": {
+                                    "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                }
+                            },
+                            "method": "get",
+                            "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/files/@{encodeURIComponent(encodeURIComponent(concat('/successful/',triggerBody()?['Name'])))}"
+                        }
+                    },
+                    "Scope": {
+                        "actions": {
+                            "Do_Not_Rename_Blob": {
+                                "actions": {
+                                    "Create_blob_(V2)_-_True": {
+                                        "type": "ApiConnection",
+                                        "inputs": {
+                                            "host": {
+                                                "connection": {
+                                                    "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                                }
+                                            },
+                                            "method": "post",
+                                            "body": "@body('Get_blob_content_(V2)')",
+                                            "headers": {
+                                                "ReadFileMetadataFromServer": true
+                                            },
+                                            "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/files",
+                                            "queries": {
+                                                "folderPath": "/successful",
+                                                "name": "@triggerBody()?['Name']",
+                                                "queryParametersSingleEncoded": true
+                                            }
+                                        },
+                                        "runtimeConfiguration": {
+                                            "contentTransfer": {
+                                                "transferMode": "Chunked"
+                                            }
+                                        }
+                                    }
+                                },
+                                "else": {
+                                    "actions": {
+                                        "Create_blob_(V2)_-_Already_Exists": {
+                                            "type": "ApiConnection",
+                                            "inputs": {
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "post",
+                                                "body": "@body('Get_blob_content_(V2)')",
+                                                "headers": {
+                                                    "ReadFileMetadataFromServer": true
+                                                },
+                                                "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/files",
+                                                "queries": {
+                                                    "folderPath": "/successful",
+                                                    "name": "@concat(triggerBody()?['Name'],'.',guid())",
+                                                    "queryParametersSingleEncoded": true
+                                                }
+                                            },
+                                            "runtimeConfiguration": {
+                                                "contentTransfer": {
+                                                    "transferMode": "Chunked"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "expression": {
+                                    "and": [
+                                        {
+                                            "equals": [
+                                                "@body('Get_Blob_Metadata_(V2)_1')?['Id']",
+                                                "@null"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "type": "If"
+                            }
+                        },
+                        "runAfter": {
+                            "Get_Blob_Metadata_(V2)_1": [
+                                "Succeeded",
+                                "Failed"
+                            ]
+                        },
+                        "type": "Scope"
+                    }
+                },
+                "runAfter": {
+                    "Initialize_variable": [
+                        "Succeeded"
+                    ]
+                },
+                "else": {
+                    "actions": {
+                        "Get_Blob_Metadata_(V2)_1-copy": {
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                    }
+                                },
+                                "method": "get",
+                                "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/files/@{encodeURIComponent(encodeURIComponent(concat('/failed/',triggerBody()?['Name'])))}"
+                            }
+                        },
+                        "Scope_1": {
+                            "actions": {
+                                "Do_Not_Rename_Blob_2": {
+                                    "actions": {
+                                        "Create_blob_(V2)_-_True_1": {
+                                            "type": "ApiConnection",
+                                            "inputs": {
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "post",
+                                                "body": "@body('Get_blob_content_(V2)')",
+                                                "headers": {
+                                                    "ReadFileMetadataFromServer": true
+                                                },
+                                                "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/files",
+                                                "queries": {
+                                                    "folderPath": "/failed",
+                                                    "name": "@triggerBody()?['Name']",
+                                                    "queryParametersSingleEncoded": true
+                                                }
+                                            },
+                                            "runtimeConfiguration": {
+                                                "contentTransfer": {
+                                                    "transferMode": "Chunked"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "else": {
+                                        "actions": {
+                                            "Create_blob_(V2)_-_Already_Exists_1": {
+                                                "type": "ApiConnection",
+                                                "inputs": {
+                                                    "host": {
+                                                        "connection": {
+                                                            "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                                        }
+                                                    },
+                                                    "method": "post",
+                                                    "body": "@body('Get_blob_content_(V2)')",
+                                                    "headers": {
+                                                        "ReadFileMetadataFromServer": true
+                                                    },
+                                                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/files",
+                                                    "queries": {
+                                                        "folderPath": "/failed",
+                                                        "name": "@concat(triggerBody()?['Name'],'.',guid())",
+                                                        "queryParametersSingleEncoded": true
+                                                    }
+                                                },
+                                                "runtimeConfiguration": {
+                                                    "contentTransfer": {
+                                                        "transferMode": "Chunked"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "expression": {
+                                        "and": [
+                                            {
+                                                "equals": [
+                                                    "@body('Get_Blob_Metadata_(V2)_1-copy')?['Id']",
+                                                    "@null"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "type": "If"
+                                }
+                            },
+                            "runAfter": {
+                                "Get_Blob_Metadata_(V2)_1-copy": [
+                                    "Succeeded",
+                                    "Failed"
+                                ]
+                            },
+                            "type": "Scope"
+                        }
+                    }
+                },
+                "expression": {
+                    "or": [
+                        {
+                            "endsWith": [
+                                "@variables('filename')",
+                                ".pdf"
+                            ]
+                        },
+                        {
+                            "endsWith": [
+                                "@variables('filename')",
+                                ".txt"
+                            ]
+                        }
+                    ]
+                },
+                "type": "If"
+            },
+            "Delete_blob_(V2)": {
+                "runAfter": {
+                    "Condition": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection",
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['azureblob']['connectionId']"
+                        }
+                    },
+                    "method": "delete",
+                    "headers": {
+                        "SkipDeleteIfFileNotFoundOnServer": false
+                    },
+                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/files/@{encodeURIComponent(encodeURIComponent(concat('/home/',triggerBody()?['Name'])))}"
+                }
+            }
+        },
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "type": "Object",
+                "defaultValue": {}
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {
+                "azureblob": {
+                    "id": "/subscriptions/e8f25eea-5c51-4948-b8e3-c58f24c166d6/providers/Microsoft.Web/locations/uksouth/managedApis/azureblob",
+                    "connectionId": "/subscriptions/e8f25eea-5c51-4948-b8e3-c58f24c166d6/resourceGroups/dm-test-ftp/providers/Microsoft.Web/connections/azureblob",
+                    "connectionName": "azureblob"
+                },
+                "azurefile": {
+                    "id": "/subscriptions/e8f25eea-5c51-4948-b8e3-c58f24c166d6/providers/Microsoft.Web/locations/uksouth/managedApis/azurefile",
+                    "connectionId": "/subscriptions/e8f25eea-5c51-4948-b8e3-c58f24c166d6/resourceGroups/dm-test-ftp/providers/Microsoft.Web/connections/azurefile",
+                    "connectionName": "azurefile"
+                }
+            }
+        }
+    }
+}
