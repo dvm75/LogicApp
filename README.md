@@ -1,6 +1,6 @@
 # Blob Mover
 
-Copy the json into the logic app. update the following actions:
+Copy the json into the logic app. Update the following two actions to resolved the *Unable to intialise operation* errors when viewed in the Logic App Designer.
 
 * When a blob is added or modified (properties only) (V2): 
 
