@@ -68,5 +68,23 @@ Copy the json into the logic app. Update the following two actions to resolved t
    
 ![image](https://github.com/user-attachments/assets/d1887160-5e83-40d6-a8e4-bfa2064e7641)
 
+Create a new action and save the changes for example:
+
 ![image](https://github.com/user-attachments/assets/c7db7617-a49c-42e5-b00b-6a111a721588)
+
+Open the logic app code review and parameters file at the bottom of the json.
+
+
+![image](https://github.com/user-attachments/assets/f5a8a809-b834-4036-9017-0b404cd058e7)
+
+
+Make a note of the `connectionName` for `teams` and `conversationservice`
+
+Replace/Update the connection string at each occurance, teams twelve time , connection service once.
+
+
+![image](https://github.com/user-attachments/assets/0f05b425-bf81-4b97-9d35-baae9987b75c)
+
+![image](https://github.com/user-attachments/assets/f675da8d-16c7-4d54-b726-1a43478e3fb7)
+
 
