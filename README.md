@@ -1,4 +1,4 @@
-# Blob Mover
+![image](https://github.com/user-attachments/assets/bcaa1fe9-cbd8-4298-aff6-0685d8c9e2cd)# Blob Mover
 ## What It Does:
 Summary of its key components:
 
@@ -28,12 +28,45 @@ This workflow essentially monitors a folder for new or modified blobs, processes
 ## How To Use
 Copy the json into the logic app. Update the following two actions to resolved the *Unable to intialise operation* errors when viewed in the Logic App Designer.
 
-* When a blob is added or modified (properties only) (V2): 
+1. When a blob is added or modified (properties only) (V2): 
 
 ![image](https://github.com/user-attachments/assets/ff755249-d229-4158-af47-4985f78c6a65)
 
-* Create file:
+2. Create file:
 
 ![image](https://github.com/user-attachments/assets/4189b08b-18ec-46e5-95df-0d8acc403af0)
 
 Where **File Name** and **File Content** are dynamic content.
+
+# Teams
+## What It Does:
+Summary of its key components:
+
+1. **Triggers:**
+    * The workflow is manually triggered via an HTTP request.
+
+2. **Actions:**
+    * The workflow processes alerts from different monitoring services like Resource Health, Service Health, and Activity Log.
+    * Depending on the alert's source and severity, it posts messages to a specified Teams channel using Adaptive Cards.
+    * The Adaptive Cards include details such as alert title, description, severity, fired time, and other relevant information.
+      
+3. **Adaptive Cards:**
+    * The cards are designed to be visually informative, with sections for images, text blocks, and fact sets.
+    * They include actions like opening URLs to Azure Monitor for more details.
+
+4. **Variables:**
+    * The workflow initializes variables to store impacted regions and resolved time details.
+  
+5. **Conditional Logic:**
+    * The workflow uses switch cases and conditions to handle different types of alerts and their respective actions.
+  
+This setup ensures that alerts are communicated effectively to the relevant teams, providing them with all necessary information to respond promptly
+
+## How To Use
+Copy the json into the logic app. Update the following two actions to resolved the *Unable to intialise operation* errors when viewed in the Logic App Designer.
+1. Create a new action *Post Card in chat or channel* (anywhere) with the required settings i.e. connection, teams channnel (This will be removed later)
+   
+![image](https://github.com/user-attachments/assets/d1887160-5e83-40d6-a8e4-bfa2064e7641)
+
+![image](https://github.com/user-attachments/assets/c7db7617-a49c-42e5-b00b-6a111a721588)
+
